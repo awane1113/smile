@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケート</title>
+    <style>
+        .slider-container {
+            width: 60%;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            position: absolute;
+            width: 100%;
+            top: -20px;
+        }
+
+        .slider-labels-below {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            position: absolute;
+            width: 100%;
+            bottom: -20px;
+        }
+
+        .slider-labels span, .slider-labels-below span {
+            flex: 1;
+            text-align: center;
+        }
+
+        .mySlider {
+            width: calc(70% - 20px); /* スライダーの幅を調整 */
+            margin: 0 10px; /* スライダーの両端のマージンを追加 */
+        }
+
+        .slider-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .mySliderContainer {
+            position: relative;
+            width: 100%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="slider-container">
+    <div class="question">
+        あざといとは、「自分が魅力的に見えることが分かった上で行っている意図的な言動」とします。<br>
+                それを踏まえて、先ほどの表情はどれほど「あざとい」と感じますか？</div>
+    <div class="slider-value">回答: <span id="sliderValue1">50</span></div>
+    <div class="mySliderContainer">
+        <input type="range" min="0" max="100" value="50" class="mySlider" id="mySlider1">
+        <div class="slider-labels">
+            <span>あざとくない</span>
+            <span>あざとい</span>
+        </div>
+        <div class="slider-labels-below">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sliderValueElement1 = document.getElementById("sliderValue1");
+    var sliderElement1 = document.getElementById("mySlider1");
+
+    function submitSurvey(sliderNumber) {
+        var sliderElement, sliderValueElement;
+        if (sliderNumber === 1) {
+            sliderElement = sliderElement1;
+            sliderValueElement = sliderValueElement1;
+        }
+
+        var sliderValue = sliderElement.value;
+        console.log("回答: " + sliderValue);
+        alert("アンケートを提出しました。回答: " + sliderValue);
+    }
+
+    sliderElement1.addEventListener("input", function() {
+        sliderValueElement1.textContent = sliderElement1.value;
+    });
+</script>
+
+<!-- 2つ目のアンケート -->
+<div class="slider-container">
+    <div class="question">先ほどの表情にどれほど好感を感じますか？</div>
+    <div class="slider-value">回答: <span id="sliderValue2">50</span></div>
+    <div class="mySliderContainer">
+        <input type="range" min="0" max="100" value="50" class="mySlider" id="mySlider2">
+        <div class="slider-labels">
+            <span>全く感じない</span>
+            <span>非常に感じる</span>
+        </div>
+        <div class="slider-labels-below">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sliderValueElement2 = document.getElementById("sliderValue2");
+    var sliderElement2 = document.getElementById("mySlider2");
+
+    function submitSurvey(sliderNumber) {
+    var sliderElement, sliderValueElement;
+    if (sliderNumber === 1) {
+        sliderElement = sliderElement1;
+        sliderValueElement = sliderValueElement1;
+    }
+
+    var sliderValue = sliderElement.value;
+    console.log("回答: " + sliderValue);
+    alert("アンケートを提出しました。回答: " + sliderValue);
+}
+    sliderElement2.addEventListener("input", function() {
+        sliderValueElement2.textContent = sliderElement2.value;
+    });
+</script>
+
+<!-- 3つ目のアンケート -->
+    <div class="slider-container">
+    <div class="question">先ほどの表情を見て、相手がどれほど<br>「『自分が笑えば、魅力的だと思ってもらえる』と思っている」と感じましたか？</div>
+    <div class="slider-value">回答: <span id="sliderValue3">50</span></div>
+    <div class="mySliderContainer">
+        <input type="range" min="0" max="100" value="50" class="mySlider" id="mySlider3">
+        <div class="slider-labels">
+            <span>全く感じない</span>
+            <span>非常に感じる</span>
+        </div>
+        <div class="slider-labels-below">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sliderValueElement3 = document.getElementById("sliderValue3");
+    var sliderElement3 = document.getElementById("mySlider3");
+    
+    function submitSurvey(sliderNumber) {
+    var sliderElement, sliderValueElement;
+    if (sliderNumber === 1) {
+        sliderElement = sliderElement1;
+        sliderValueElement = sliderValueElement1;
+    }
+
+    var sliderValue = sliderElement.value;
+    console.log("回答: " + sliderValue);
+    alert("アンケートを提出しました。回答: " + sliderValue);
+}
+    sliderElement3.addEventListener("input", function() {
+        sliderValueElement3.textContent = sliderElement3.value;
+    });
+</script>
+
+<!-- 4つ目のアンケート -->
+    <div class="slider-container">
+    <div class="question">もしあなたが、先ほどの表情をした相手から<br>「トイレに行く間少しだけ荷物を持っていてほしい」と頼まれたら、どれほど対応したいと思いますか？</div>
+    <div class="slider-value">回答: <span id="sliderValue4">50</span></div>
+    <div class="mySliderContainer">
+        <input type="range" min="0" max="100" value="50" class="mySlider" id="mySlider4">
+        <div class="slider-labels">
+            <span>全く思わない</span>
+            <span>非常に思う</span>
+        </div>
+        <div class="slider-labels-below">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var sliderValueElement4 = document.getElementById("sliderValue4");
+    var sliderElement4 = document.getElementById("mySlider4");
+
+    function submitSurvey(sliderNumber) {
+    var sliderElement, sliderValueElement;
+    if (sliderNumber === 1) {
+        sliderElement = sliderElement1;
+        sliderValueElement = sliderValueElement1;
+    }
+
+    var sliderValue = sliderElement.value;
+    console.log("回答: " + sliderValue);
+    alert("アンケートを提出しました。回答: " + sliderValue);
+}
+    sliderElement4.addEventListener("input", function() {
+        sliderValueElement4.textContent = sliderElement4.value;
+    });
+
+</script>
+
+<!-- 11個のアンケートに回答した後に「送信」ボタンを押す -->
+<button onclick="submitSurveyData()">Submit</button>
+
+<script>
+var sliderValues = [];
+
+function submitSurveyData() {
+    // Prepare data for submission
+    var data = [
+        sliderValueElement1.textContent,
+        sliderValueElement2.textContent,
+        sliderValueElement3.textContent,
+        sliderValueElement4.textContent
+    ];
+
+    // Initialize Google Sheets API
+    gapi.load('client', initClient);
+
+    // Function to initialize Google Sheets API client
+    function initClient() {
+        gapi.client.init({
+            apiKey: 'AIzaSyCrYycsTpxoJKClnnJxD-LHupEoMDf06-c',
+            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+            clientId: '7027421116-k3280m6f4r1m2of9scobkj3airq4pier.apps.googleusercontent.com',
+            scope: 'https://www.googleapis.com/auth/spreadsheets'
+        }).then(function () {
+            // Call the Google Sheets API
+            gapi.client.sheets.spreadsheets.values.update({
+                spreadsheetId: '1g5zV87ljhLH3hNCY0yrYJA_xlWoP824FTQDwhD4GdFs',
+                range: 'Sheet1!A1', // Change to your desired sheet and range
+                valueInputOption: 'RAW',
+                values: [data]
+            }).then(function (response) {
+                console.log(response);
+                alert('Survey data submitted successfully!');
+            }, function (reason) {
+                console.error('Error: ' + reason.result.error.message);
+            });
+        });
+    }
+}
+</script>
+
+
+</body>
+</html>
