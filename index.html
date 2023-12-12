@@ -234,31 +234,55 @@
     // Your existing event listeners for sliders remain unchanged
 </script>
 
-// JavaScript
-function submitSurveyData() {
-  var data = {
-    sliderValue1: sliderElement1.value,
-    sliderValue2: sliderElement2.value,
-    sliderValue3: sliderElement3.value,
-    sliderValue4: sliderElement4.value
-  };
 
-  fetch('https://script.google.com/macros/s/AKfycbxnGowKnXIcBRjn2w3G3A7QhFKd2Re2-Bqv1YM40gflgpfdvqjRQ9MinqmTGCRm6I0v/exec', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-  .then(response => {
-    console.log('Success:', response);
-    alert('アンケートを提出しました。');
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('アンケートの提出に失敗しました。');
-  });
-}
+<script>
+    var sliderValueElement1 = document.getElementById("sliderValue1");
+    var sliderElement1 = document.getElementById("mySlider1");
+    var sliderValueElement2 = document.getElementById("sliderValue2");
+    var sliderElement2 = document.getElementById("mySlider2");
+    var sliderValueElement3 = document.getElementById("sliderValue3");
+    var sliderElement3 = document.getElementById("mySlider3");
+    var sliderValueElement4 = document.getElementById("sliderValue4");
+    var sliderElement4 = document.getElementById("mySlider4");
+
+    function submitSurveyData() {
+        // Get slider values and question numbers
+        var sliderValue1 = sliderElement1.value;
+        var questionNumber1 = 1;
+
+        var sliderValue2 = sliderElement2.value;
+        var questionNumber2 = 2;
+
+        var sliderValue3 = sliderElement3.value;
+        var questionNumber3 = 3;
+
+        var sliderValue4 = sliderElement4.value;
+        var questionNumber4 = 4;
+
+        // Create CSV content
+        var csvContent = "QuestionNumber,Answer\n";
+        csvContent += questionNumber1 + "," + sliderValue1 + "\n";
+        csvContent += questionNumber2 + "," + sliderValue2 + "\n";
+        csvContent += questionNumber3 + "," + sliderValue3 + "\n";
+        csvContent += questionNumber4 + "," + sliderValue4 + "\n";
+
+        // Create Blob and download link
+        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        var link = document.createElement("a");
+        if (link.download !== undefined) {
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "survey_results.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            alert("Your browser does not support the download attribute.");
+        }
+    }
+
+    // Your existing event listeners for sliders remain unchanged
+</script>
 
 <!-- Your HTML content remains unchanged -->
 
