@@ -64,7 +64,7 @@
 <body>
 
 
-<div class="slider-container">
+<div class="slider-container" id="question1">
     <div class="question">
         あざといとは、「自分が魅力的に見えることが分かった上で行っている意図的な言動」とします。<br>
                 それを踏まえて、先ほどの表情はどれほど「あざとい」と感じますか？</div>
@@ -105,7 +105,7 @@
 </script>
 
 <!-- 2つ目のアンケート -->
-<div class="slider-container">
+<div class="slider-container" id="question2">
     <div class="question">先ほどの表情にどれほど好感を感じますか？</div>
     <div class="slider-value">回答: <span id="sliderValue2">50</span></div>
     <div class="mySliderContainer">
@@ -143,7 +143,7 @@
 </script>
 
 <!-- 3つ目のアンケート -->
-    <div class="slider-container">
+    <div class="slider-container" id="question3">
     <div class="question">先ほどの表情を見て、相手がどれほど<br>「『自分が笑えば、魅力的だと思ってもらえる』と思っている」と感じましたか？</div>
     <div class="slider-value">回答: <span id="sliderValue3">50</span></div>
     <div class="mySliderContainer">
@@ -181,7 +181,7 @@
 </script>
 
 <!-- 4つ目のアンケート -->
-    <div class="slider-container">
+    <div class="slider-container" id="question4">
     <div class="question">もしあなたが、先ほどの表情をした相手から<br>「トイレに行く間少しだけ荷物を持っていてほしい」と頼まれたら、どれほど対応したいと思いますか？</div>
     <div class="slider-value">回答: <span id="sliderValue4">50</span></div>
     <div class="mySliderContainer">
@@ -220,49 +220,74 @@
 
 </script>
 
-<!-- 11個のアンケートに回答した後に「送信」ボタンを押す -->
-<button onclick="submitSurveyData()">Submit</button>
-
 <script>
-var sliderValues = [];
+    // Shuffle the question containers randomly
+    var questionContainers = document.querySelectorAll('.slider-container');
+    var shuffledContainers = Array.from(questionContainers).sort(() => Math.random() - 0.5);
 
-function submitSurveyData() {
-    // Prepare data for submission
-    var data = [
-        sliderValueElement1.textContent,
-        sliderValueElement2.textContent,
-        sliderValueElement3.textContent,
-        sliderValueElement4.textContent
-    ];
+    // Append the shuffled containers back to the body
+    var body = document.body;
+    shuffledContainers.forEach(container => {
+        body.appendChild(container);
+    });
 
-    // Initialize Google Sheets API
-    gapi.load('client', initClient);
-
-    // Function to initialize Google Sheets API client
-    function initClient() {
-        gapi.client.init({
-            apiKey: 'AIzaSyCrYycsTpxoJKClnnJxD-LHupEoMDf06-c',
-            discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-            clientId: '7027421116-k3280m6f4r1m2of9scobkj3airq4pier.apps.googleusercontent.com',
-            scope: 'https://www.googleapis.com/auth/spreadsheets'
-        }).then(function () {
-            // Call the Google Sheets API
-            gapi.client.sheets.spreadsheets.values.update({
-                spreadsheetId: '1g5zV87ljhLH3hNCY0yrYJA_xlWoP824FTQDwhD4GdFs',
-                range: 'Sheet1!A1', // Change to your desired sheet and range
-                valueInputOption: 'RAW',
-                values: [data]
-            }).then(function (response) {
-                console.log(response);
-                alert('Survey data submitted successfully!');
-            }, function (reason) {
-                console.error('Error: ' + reason.result.error.message);
-            });
-        });
-    }
-}
+    // Your existing event listeners for sliders remain unchanged
 </script>
 
+
+<script>
+    var sliderValueElement1 = document.getElementById("sliderValue1");
+    var sliderElement1 = document.getElementById("mySlider1");
+    var sliderValueElement2 = document.getElementById("sliderValue2");
+    var sliderElement2 = document.getElementById("mySlider2");
+    var sliderValueElement3 = document.getElementById("sliderValue3");
+    var sliderElement3 = document.getElementById("mySlider3");
+    var sliderValueElement4 = document.getElementById("sliderValue4");
+    var sliderElement4 = document.getElementById("mySlider4");
+
+    function submitSurveyData() {
+        // Get slider values and question numbers
+        var sliderValue1 = sliderElement1.value;
+        var questionNumber1 = 1;
+
+        var sliderValue2 = sliderElement2.value;
+        var questionNumber2 = 2;
+
+        var sliderValue3 = sliderElement3.value;
+        var questionNumber3 = 3;
+
+        var sliderValue4 = sliderElement4.value;
+        var questionNumber4 = 4;
+
+        // Create CSV content
+        var csvContent = "QuestionNumber,Answer\n";
+        csvContent += questionNumber1 + "," + sliderValue1 + "\n";
+        csvContent += questionNumber2 + "," + sliderValue2 + "\n";
+        csvContent += questionNumber3 + "," + sliderValue3 + "\n";
+        csvContent += questionNumber4 + "," + sliderValue4 + "\n";
+
+        // Create Blob and download link
+        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        var link = document.createElement("a");
+        if (link.download !== undefined) {
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "survey_results.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            alert("Your browser does not support the download attribute.");
+        }
+    }
+
+    // Your existing event listeners for sliders remain unchanged
+</script>
+
+<!-- Your HTML content remains unchanged -->
+
+<!-- "Submit" button to trigger CSV export -->
+<button onclick="submitSurveyData()">Submit</button>
 
 </body>
 </html>
